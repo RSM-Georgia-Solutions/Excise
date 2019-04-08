@@ -5,7 +5,7 @@ using SAPbouiCOM.Framework;
 
 namespace Excise
 {
-    [FormAttribute("Excise.Form1", "Form1.b1f")]
+    [FormAttribute("Excise.Form1", "ExciseAmount.b1f")]
     class Form1 : UserFormBase
     {
         public Form1()
@@ -17,6 +17,10 @@ namespace Excise
         /// </summary>
         public override void OnInitializeComponent()
         {
+            this.EditText0 = ((SAPbouiCOM.EditText)(this.GetItem("Item_0").Specific));
+            this.StaticText0 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_1").Specific));
+            this.OnCustomInitialize();
+
         }
 
         /// <summary>
@@ -25,5 +29,14 @@ namespace Excise
         public override void OnInitializeFormEvents()
         {
         }
+
+        private SAPbouiCOM.EditText EditText0;
+
+        private void OnCustomInitialize()
+        {
+
+        }
+
+        private SAPbouiCOM.StaticText StaticText0;
     }
 }

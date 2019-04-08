@@ -45,7 +45,7 @@ namespace Excise
                 // Create s sub menu
                 oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_STRING;
                 oCreationPackage.UniqueID = "Excise.Form1";
-                oCreationPackage.String = "Form1";
+                oCreationPackage.String = "ExciseAmount";
                 oMenus.AddEx(oCreationPackage);
             }
             catch (Exception er)

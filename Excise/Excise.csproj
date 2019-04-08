@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,6 +35,9 @@
     <StartupObject>Excise.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConverterLib_x64">
+      <HintPath>..\..\Invoice Income Correction\Invoice Income Correction\bin\Debug\ConverterLib_x64.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,11 +50,30 @@
     <Reference Include="SAPBusinessOneSDK" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Form1.b1f">
+    <None Include="ARCreditMemo.b1f">
+      <FormCategory>SystemForm</FormCategory>
+    </None>
+    <None Include="ARCreditMemo.b1f__orig_srf">
+      <DependentUpon>ARCreditMemo.b1f</DependentUpon>
+    </None>
+    <None Include="ARInvoice.b1f">
+      <FormCategory>SystemForm</FormCategory>
+    </None>
+    <None Include="ARInvoice.b1f__orig_srf">
+      <DependentUpon>ARInvoice.b1f</DependentUpon>
+    </None>
+    <None Include="ExciseAmount.b1f">
       <FormCategory>UserForm</FormCategory>
     </None>
-    <Compile Include="Form1.b1f.cs">
-      <DependentUpon>Form1.b1f</DependentUpon>
+    <Compile Include="ARCreditMemo.b1f.cs">
+      <DependentUpon>ARCreditMemo.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="ARInvoice.b1f.cs">
+      <DependentUpon>ARInvoice.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="DiManager.cs" />
+    <Compile Include="ExciseAmount.b1f.cs">
+      <DependentUpon>ExciseAmount.b1f</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Menu.cs" />
