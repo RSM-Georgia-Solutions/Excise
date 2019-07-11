@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ConverterLib_x64">
-      <HintPath>..\..\Invoice Income Correction\Invoice Income Correction\bin\Debug\ConverterLib_x64.dll</HintPath>
+      <HintPath>..\ConverterLib_x64.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

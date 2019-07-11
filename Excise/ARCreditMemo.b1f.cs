@@ -90,7 +90,6 @@ namespace Excise
                     SAPbobsCOM.Items item = (SAPbobsCOM.Items)DiManager.Company.GetBusinessObject(BoObjectTypes.oItems);
                     item.GetByKey(itemCode);
                     string exciseString = string.Empty;
-                    double excise = double.Parse(exciseString);
                     try
                     {
                         exciseString = item.UserFields.Fields.Item("U_Excise").Value.ToString();
@@ -101,6 +100,8 @@ namespace Excise
                             BoMessageTime.bmt_Short, true);
                         return;
                     }
+
+                    double excise = double.Parse(exciseString, CultureInfo.InvariantCulture);
                     if (string.IsNullOrWhiteSpace(exciseString) || excise == 0)
                     {
                         continue;
