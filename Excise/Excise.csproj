@@ -75,9 +75,25 @@
     <Compile Include="ExciseAmount.b1f.cs">
       <DependentUpon>ExciseAmount.b1f</DependentUpon>
     </Compile>
+    <Compile Include="ExciseParams.b1f.cs">
+      <DependentUpon>ExciseParams.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="Initialization\CreateFields.cs" />
+    <Compile Include="Initialization\CreateTables.cs" />
+    <Compile Include="Initialization\Init.cs" />
+    <Compile Include="Initialization\IRunnable.cs" />
+    <Compile Include="ListOfAccount.b1f.cs">
+      <DependentUpon>ListOfAccount.b1f</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="ExciseParams.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="ListOfAccount.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Excise.Initialization;
 using SAPbouiCOM.Framework;
 
 namespace Excise
@@ -17,7 +18,11 @@ namespace Excise
                 Application oApp = null;
                 oApp = args.Length < 1 ? new Application() : new Application(args[0]);
                 Menu MyMenu = new Menu();
-                //MyMenu.AddMenuItems();
+                MyMenu.AddMenuItems();
+
+                Init megi = new Init();
+                megi.Run(DiManager.Company);
+                
                 oApp.RegisterMenuEventHandler(MyMenu.SBO_Application_MenuEvent);
                 Application.SBO_Application.AppEvent += new SAPbouiCOM._IApplicationEvents_AppEventEventHandler(SBO_Application_AppEvent);
                 oApp.Run();

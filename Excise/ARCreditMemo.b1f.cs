@@ -7,6 +7,7 @@ using SAPbouiCOM.Framework;
 using Application = SAPbouiCOM.Framework.Application;
 using SAPbobsCOM;
 using System.Globalization;
+using System.Xml;
 
 namespace Excise
 {
@@ -41,6 +42,24 @@ namespace Excise
         {
             if (pVal.ActionSuccess)
             {
+                var invObjectString = pVal.ObjectKey;
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(invObjectString);
+                string creditMemoDocEnttry = string.Empty;
+                try
+                {
+                    creditMemoDocEnttry = xmlDoc.GetElementsByTagName("DocEntry").Item(0).InnerText;
+                }
+                catch (Exception e)
+                {
+                    Application.SBO_Application.SetStatusBarMessage("Invalid Document Number",
+                        BoMessageTime.bmt_Short, true);
+                }
+
+
+                Documents creditMemoDi = (Documents)DiManager.Company.GetBusinessObject(BoObjectTypes.oCreditNotes);
+                creditMemoDi.GetByKey(int.Parse(creditMemoDocEnttry, CultureInfo.InvariantCulture));
+
                 Form invoice = Application.SBO_Application.Forms.ActiveForm;
                 string currency = "GEL";
                 try
@@ -71,6 +90,7 @@ namespace Excise
                     SAPbobsCOM.Items item = (SAPbobsCOM.Items)DiManager.Company.GetBusinessObject(BoObjectTypes.oItems);
                     item.GetByKey(itemCode);
                     string exciseString = string.Empty;
+                    double excise = double.Parse(exciseString);
                     try
                     {
                         exciseString = item.UserFields.Fields.Item("U_Excise").Value.ToString();
@@ -81,15 +101,21 @@ namespace Excise
                             BoMessageTime.bmt_Short, true);
                         return;
                     }
-                    if (string.IsNullOrWhiteSpace(exciseString))
+                    if (string.IsNullOrWhiteSpace(exciseString) || excise == 0)
                     {
                         continue;
                     }
 
-                    double quantity = double.Parse(quantityString);
-                    double excise = double.Parse(exciseString);
-                    double fullExcise = Math.Round(quantity * excise);
-                    string result = DiManager.AddJournalEntryCredit(DiManager.Company, exciseAccount, glRevenueAccount, -fullExcise, series, invNumber, glRevenueAccount, postingDate, bplId, currency);
+                    double quantity = double.Parse(quantityString, CultureInfo.InvariantCulture);
+                    double fullExcise = Math.Round(quantity * excise,6);
+                    if (creditMemoDi.CancelStatus == CancelStatusEnum.csCancellation)
+                    {
+                        string result = DiManager.AddJournalEntryCredit(DiManager.Company, exciseAccount, glRevenueAccount, fullExcise, series, invNumber + " " + $"{itemCode}", glRevenueAccount, postingDate, bplId, currency);
+                    }
+                    else
+                    {
+                        string result = DiManager.AddJournalEntryCredit(DiManager.Company, exciseAccount, glRevenueAccount, -fullExcise, series, invNumber + " " + $"{itemCode}", glRevenueAccount, postingDate, bplId, currency);
+                    }
                 }
             }
 
@@ -120,9 +146,10 @@ namespace Excise
             Recordset recSetAct =
                 (Recordset)DiManager.Company.GetBusinessObject(BoObjectTypes
                     .BoRecordset);
-            recSetAct.DoQuery(DiManager.QueryHanaTransalte($"SELECT GlblLocNum FROM ADM1"));
+            recSetAct.DoQuery(DiManager.QueryHanaTransalte($"SELECT * FROM [@RSM_EXCP]"));
+           
 
-            exciseAccount = recSetAct.Fields.Item("GlblLocNum").Value.ToString();
+            exciseAccount = recSetAct.Fields.Item("U_ExciseAccReturn").Value.ToString();
             if (string.IsNullOrWhiteSpace(exciseAccount))
             {
                 Application.SBO_Application.SetStatusBarMessage("აქციზის ანგარიში არაა მითითებული (General Settings)",
