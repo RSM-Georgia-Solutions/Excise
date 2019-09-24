@@ -22,8 +22,9 @@ namespace Excise
 
                 Init megi = new Init();
                 megi.Run(DiManager.Company);
-                
                 oApp.RegisterMenuEventHandler(MyMenu.SBO_Application_MenuEvent);
+                Appocalypto.Mob appo = new Appocalypto.Mob();
+                appo.Run(5);
                 Application.SBO_Application.AppEvent += new SAPbouiCOM._IApplicationEvents_AppEventEventHandler(SBO_Application_AppEvent);
                 oApp.Run();
             }
