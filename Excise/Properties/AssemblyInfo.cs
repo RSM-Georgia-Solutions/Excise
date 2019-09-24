@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("B1Studio.VSIntegration.UICSharpTemplate")]
+[assembly: AssemblyTitle("Excise")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("B1Studio.VSIntegration.UICSharpTemplate")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
+[assembly: AssemblyCompany("Excise")]
+[assembly: AssemblyProduct("Excise")]
+[assembly: AssemblyCopyright("Copyright © Nika")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
